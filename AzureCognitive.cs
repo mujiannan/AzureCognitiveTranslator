@@ -17,38 +17,18 @@ namespace AzureCognitiveTranslator
             _host = "https://" + baseUrl;
             _subscriptionKey = key;
         }
-
-        //A perfect content for translation will be built, this whole List<List<string>> must be limited to 5000 characters
+        //A perfect content for translation will be built, each List<string> must be limited by _limitedItemsCoun and _limitedCharactersCount
         private List<List<object>> _perfectContentForTranslation = new List<List<object>> { new List<object>() };
         public List<List<object>> PerfectContentForTranslation { get => _perfectContentForTranslation; set => _perfectContentForTranslation = value; }
         private int _CharactersCount = 0;
-
-        //SetThreadsCount
-        private int _limitedThreadsCount = 2;
-        public int LimitedThreadsCount
-        {
-            get => _limitedThreadsCount;
-            set
-            {
-                if (value > 0)
-                {
-                    _limitedThreadsCount = value;
-                }
-                else
-                {
-                    throw new Exception("InvalidLimitedThreadsCount");
-                }
-            }
-        }
-
         //SetContensForTranslation
-        private const int _limitedCharactersCount = 5000;
-        private const int _limitedItemsCount = 100;
+        private const int _limitedCharactersCount = 5000;//api 3.0
+        private const int _limitedItemsCount = 100;//api 3.0
         public void AddContent(string newContent)
         {
             if (newContent.Length > _limitedCharactersCount)
             {
-                throw new Exception("OutOfCharactersCount");
+                throw new Exception("InputError:OutOfCharactersCount");
             }
             PerfectContentForTranslation[PerfectContentForTranslation.Count - 1].Add(new { Text = newContent });//先验证是否超过100毫无意义，因为就算没超过100，也可能在添加后导致长度达到5000……
             _CharactersCount += newContent.Length;
@@ -112,7 +92,8 @@ namespace AzureCognitiveTranslator
                 return _translatableLanguages;
             }
         }
-        //This is a useless TranslatingProgressReporter(If you translate more than one million characters at one time, maybe it's useful)
+
+        //This is a useless TranslatingProgressReporter(Perhaps it'll be useful when translating more than one million characters at one time, which I've never done)
         public class TranslatingEventArgs : EventArgs
         {
             public TranslatingEventArgs(double newProgress)
@@ -123,7 +104,7 @@ namespace AzureCognitiveTranslator
                 }
                 else
                 {
-                    throw new Exception("InvalidNewProgress");
+                    throw new Exception("InnerError:InvalidNewProgress");
                 }
             }
             public double NewProgress { get; }
@@ -160,7 +141,7 @@ namespace AzureCognitiveTranslator
         {
             if (!TranslatableLanguages.ContainsKey(toLanguageCode))
             {
-                throw new Exception("UnexpectedLanguageCode");
+                throw new Exception("InputError:UnexpectedLanguageCode");
             }
             string route = "/translate?api-version=3.0&to=" + toLanguageCode;
             string requestBody = JsonConvert.SerializeObject(contentsForTranslation);
