@@ -5,10 +5,13 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/mujiannan/AzureCognitiveTranslator</PackageProjectUrl>
-    <AssemblyVersion>1.0.0.1</AssemblyVersion>
-    <FileVersion>1.0.0.1</FileVersion>
-    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.0.2</AssemblyVersion>
+    <FileVersion>1.0.0.2</FileVersion>
+    <Version>1.0.2</Version>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <Description>Call CognitiveServices Translator API 3.0
+Batch translation, easily and quickly</Description>
+    <PackageReleaseNotes>Delete the property "LimitedThreadsCount"</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

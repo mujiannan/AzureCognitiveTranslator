@@ -44,6 +44,8 @@ namespace AzureCognitiveTranslator
         {
             set
             {
+                _perfectContentForTranslation.Clear();
+                _perfectContentForTranslation.Add(new List<object>());
                 for (int i = 0; i < value.Count; i++)
                 {
                     AddContent(value[i]);
@@ -86,8 +88,16 @@ namespace AzureCognitiveTranslator
             {
                 if (_translatableLanguages == null)
                 {
-                    string translation = JsonConvert.DeserializeObject<JObject>(AcceptLanguages)["translation"].ToString();//extract "translation" from jsonAcceptLanguage
-                    _translatableLanguages = JsonConvert.DeserializeObject<Dictionary<string, Language>>(translation);//如果字段为null，则先获取再设置，最后总是返回该字段
+                    try
+                    {
+                        string translation = JsonConvert.DeserializeObject<JObject>(AcceptLanguages)["translation"].ToString();//extract "translation" from jsonAcceptLanguage
+                        _translatableLanguages = JsonConvert.DeserializeObject<Dictionary<string, Language>>(translation);//如果字段为null，则先获取再设置，最后总是返回该字段
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    
                 }
                 return _translatableLanguages;
             }
@@ -123,10 +133,15 @@ namespace AzureCognitiveTranslator
         //Main method for translation
         public async Task<List<string>> TranslateAsync(string toLanguageCode)
         {
+            if (PerfectContentForTranslation.Count==0)
+            {
+                throw new Exception("NoContentToTranslate");
+            }
             Task<List<string>>[] tasks = new Task<List<string>>[PerfectContentForTranslation.Count];
+            HttpClient translateClient = new HttpClient();
             for (int i = 0; i < PerfectContentForTranslation.Count; i++)
             {
-                tasks[i] = TranslateAsync(PerfectContentForTranslation[i], toLanguageCode);
+                tasks[i] = TranslateAsync(PerfectContentForTranslation[i], toLanguageCode,translateClient);
             }
             List<string> results = new List<string>();
             for (int i = 0; i < tasks.Length; i++)
@@ -134,10 +149,11 @@ namespace AzureCognitiveTranslator
                 results.AddRange(await tasks[i]);
                 ChangeProgress((double)(i + 1) / tasks.Length);
             }
+            translateClient.Dispose();
             return results;
         }
         //TranslateAsync will call this method
-        private async Task<List<string>> TranslateAsync(List<object> contentsForTranslation, string toLanguageCode)
+        private async Task<List<string>> TranslateAsync(List<object> contentsForTranslation, string toLanguageCode,HttpClient httpClient)
         {
             if (!TranslatableLanguages.ContainsKey(toLanguageCode))
             {
@@ -145,7 +161,6 @@ namespace AzureCognitiveTranslator
             }
             string route = "/translate?api-version=3.0&to=" + toLanguageCode;
             string requestBody = JsonConvert.SerializeObject(contentsForTranslation);
-            HttpClient client = new HttpClient();
             HttpRequestMessage request = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
@@ -153,7 +168,7 @@ namespace AzureCognitiveTranslator
                 Content = new StringContent(requestBody, Encoding.UTF8, "application/json")
             };
             request.Headers.Add("Ocp-Apim-Subscription-Key", _subscriptionKey);
-            HttpResponseMessage response = await client.SendAsync(request);
+            HttpResponseMessage response = await httpClient.SendAsync(request);
             string responseBody = await response.Content.ReadAsStringAsync();
             List<string> results = new List<string>();
             try
@@ -168,7 +183,6 @@ namespace AzureCognitiveTranslator
             {
                 throw;
             }
-            client.Dispose();
             request.Dispose();
             return results;
         }
