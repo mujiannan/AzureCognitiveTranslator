@@ -6,27 +6,26 @@
 
 * Code Example
 
+1. "A simple example, add content to translator one by one";
 
-2. "A simple example, add content to translator one by one";
+        //Get a instance of Translator:
 
-    //Get a instance of Translator:
-    Translator translator = new Translator(resources.MyAzureCognitiveBaseUrl, Secret.MyAzureCogitiveKey);
-    //
+        Translator translator = new Translator(resources.MyAzureCognitiveBaseUrl, Secret.MyAzureCogitiveKey);
 
-    translator.AddContent("哈啰，");//Add a string object to the translator
-    translator.AddContent("世界！");//Add another
+        translator.AddContent("哈啰，");//Add a string object to the translator
+        translator.AddContent("世界！");//Add another
 
-    Console.WriteLine("Now translating, please wait for a moment...");
+        Console.WriteLine("Now translating, please wait for a moment...");
 
-    //Create a List<string> to receive result, and don't forgeive to give "TranslateAsync" a languge code
-    List<string> translation = await translator.TranslateAsync("en");//You can get language codes by Translator Property "TranlatableLanguages"
-    Console.WriteLine("Translation:");
-    for (int i = 0; i < translation.Count; i++)
-    {
-        Console.WriteLine(translation[i]);
-    }
-    
-2. "A simple example, batch adding";
+        //Create a List<string> to receive result, and don't forgeive to give "TranslateAsync" a languge code
+        List<string> translation = await translator.TranslateAsync("en");//You can get language codes by Translator Property "TranlatableLanguages"
+        Console.WriteLine("Translation:");
+        for (int i = 0; i < translation.Count; i++)
+        {
+            Console.WriteLine(translation[i]);
+        }
+
+1. Batch adding
 
         //Prepare a List<string>, in which there are many items to translate
         //Here is an Exmp List<string> with two items
@@ -44,7 +43,7 @@
             Console.WriteLine(translation[i]);
         }
 
-2. "Get translatable languages";
+1. Get translatable languages
 
         //Prepare a Dictionary<string code,Language>, you can use "var" insteadly
         //Language is a Struct, consist of three string field: Name, nativeName
