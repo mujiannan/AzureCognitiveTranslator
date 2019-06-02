@@ -6,7 +6,7 @@
 
 * Code Example
 
-1. "A simple example, add content to translator one by one";
+1. A simple example, add content to translator one by one
 
         //Get a instance of Translator:
         Translator translator = new Translator(resources.MyAzureCognitiveBaseUrl, Secret.MyAzureCogitiveKey);

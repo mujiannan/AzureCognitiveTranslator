@@ -97,7 +97,7 @@ namespace AzureCognitiveTranslator
                     {
                         throw;
                     }
-                    
+
                 }
                 return _translatableLanguages;
             }
@@ -133,7 +133,7 @@ namespace AzureCognitiveTranslator
         //Main method for translation
         public async Task<List<string>> TranslateAsync(string toLanguageCode)
         {
-            if (PerfectContentForTranslation.Count==0)
+            if (PerfectContentForTranslation.Count == 0)
             {
                 throw new Exception("NoContentToTranslate");
             }
@@ -141,7 +141,7 @@ namespace AzureCognitiveTranslator
             HttpClient translateClient = new HttpClient();
             for (int i = 0; i < PerfectContentForTranslation.Count; i++)
             {
-                tasks[i] = TranslateAsync(PerfectContentForTranslation[i], toLanguageCode,translateClient);
+                tasks[i] = TranslateAsync(PerfectContentForTranslation[i], toLanguageCode, translateClient);
             }
             List<string> results = new List<string>();
             for (int i = 0; i < tasks.Length; i++)
@@ -153,7 +153,7 @@ namespace AzureCognitiveTranslator
             return results;
         }
         //TranslateAsync will call this method
-        private async Task<List<string>> TranslateAsync(List<object> contentsForTranslation, string toLanguageCode,HttpClient httpClient)
+        private async Task<List<string>> TranslateAsync(List<object> contentsForTranslation, string toLanguageCode, HttpClient httpClient)
         {
             if (!TranslatableLanguages.ContainsKey(toLanguageCode))
             {
