@@ -5,13 +5,16 @@
 1. Get result aysnc.
 
 * Code Example
-exmp1. "A simple example, add content to translator one by one";
 
-    //Get a instance of Translator
+
+2. "A simple example, add content to translator one by one";
+
+    //Get a instance of Translator:
     Translator translator = new Translator(resources.MyAzureCognitiveBaseUrl, Secret.MyAzureCogitiveKey);
+    //
 
-    translator.AddContent("¹ş†ª£¬");//Add a string object to the translator
-    translator.AddContent("ÊÀ½ç£¡");//Add another
+    translator.AddContent("å“ˆå•°ï¼Œ");//Add a string object to the translator
+    translator.AddContent("ä¸–ç•Œï¼");//Add another
 
     Console.WriteLine("Now translating, please wait for a moment...");
 
@@ -22,11 +25,12 @@ exmp1. "A simple example, add content to translator one by one";
     {
         Console.WriteLine(translation[i]);
     }
-exmp2. "A simple example, batch adding";
+    
+2. "A simple example, batch adding";
 
         //Prepare a List<string>, in which there are many items to translate
         //Here is an Exmp List<string> with two items
-        List<string> contents = new List<string>() { "¹ş†ª£¬","ÊÀ½ç£¡" };
+        List<string> contents = new List<string>() { "å“ˆå•°ï¼Œ","ä¸–ç•Œï¼" };
 
         //Set the List<string> to the property "Contents"
         translator.Contents = contents;
@@ -40,7 +44,7 @@ exmp2. "A simple example, batch adding";
             Console.WriteLine(translation[i]);
         }
 
-exmp3. "Get translatable languages";
+2. "Get translatable languages";
 
         //Prepare a Dictionary<string code,Language>, you can use "var" insteadly
         //Language is a Struct, consist of three string field: Name, nativeName
