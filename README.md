@@ -1,5 +1,5 @@
 # AzureCognitiveTranslator
-*. This Nuget can help you on Batch-Translation, easily and quickly.
+* This Nuget can help you on Batch-Translation, easily and quickly.
 1. Create an instance of Translator with your BaseUrl and Key.
 1. Add content to the Translator.
 1. Get result aysnc.
@@ -9,7 +9,6 @@
 1. "A simple example, add content to translator one by one";
 
         //Get a instance of Translator:
-
         Translator translator = new Translator(resources.MyAzureCognitiveBaseUrl, Secret.MyAzureCogitiveKey);
 
         translator.AddContent("哈啰，");//Add a string object to the translator
