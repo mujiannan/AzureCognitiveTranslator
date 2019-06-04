@@ -5,23 +5,14 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/mujiannan/AzureCognitiveTranslator</PackageProjectUrl>
-    <AssemblyVersion>1.0.0.4</AssemblyVersion>
-    <FileVersion>1.0.0.4</FileVersion>
-    <Version>1.0.4</Version>
+    <AssemblyVersion>1.0.0.5</AssemblyVersion>
+    <FileVersion>1.0.0.5</FileVersion>
+    <Version>1.0.5</Version>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <Description>Call CognitiveServices Translator API 3.0
-* This Nuget can help you on Batch-Translation, easily and quickly.  
-It'll transform your contents to some perfect packages for translating.
-Speed: On my PC, about 300~500 items per second
-Exmp:
-1. Create an instance of Translator with your BaseUrl and Key:
-Translator translator = new Translator(resources.MyAzureCognitiveBaseUrl, Secret.MyAzureCogitiveKey);
-2. Add content to the Translator:
-translator.AddContent("哈啰，");//here you can add many times, more than 100, 1000, 10000. You can also set the property "Contents" instead.
-3. Get results aysnc:
-List&lt;string&gt; translation = await translator.TranslateAsync("en");</Description>
-    <PackageReleaseNotes>1. Remove the property "LimitedThreadsCount".
-2. Improve the property "Contents". Now it'll be Auto-Clear before Value-Setting.</PackageReleaseNotes>
+    <Description>Batch translation on CognitiveServices Translator API 3.0
+
+Speed: 300~1000 items(not characters) per second.</Description>
+    <PackageReleaseNotes>Performance improvement</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

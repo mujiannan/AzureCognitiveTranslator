@@ -1,9 +1,9 @@
 # AzureCognitiveTranslator
 Use [this NuGet package](https://www.nuget.org/packages/AzureCognitiveTranslator/) for batch translation on CognitiveServices Translator API 3.0
 
-* This Nuget can help you on Batch-Translation, **easily** and **quickly**. 
+* This package can help you on Batch-Translation, **easily** and **quickly**. 
 1. **How it work**: It'll transform your contents to some perfect packages for translating.
-1. **Speed**: On my PC, about 300~500 items(*not characters*) per second
+1. **Speed**: On my PC, about 300~500 items(*not characters*) per second.
 
 Here are **steps**:
 
@@ -62,8 +62,8 @@ Here are **steps**:
 
 1. Get **translatable** languages
 
-        //Prepare a Dictionary<string code,Language>, you can use "var" insteadly
-        //Language is a Struct, consist of three string field: Name, nativeName
+        //Prepare a Dictionary<string code,Language>, you can also use "var" instead
+        //Language is a Struct, consist of three string field: name, nativeName, dir
         Dictionary<string, Translator.Language> translatableLanguages = translator.TranslatableLanguages;
 
         foreach (string code in translatableLanguages.Keys)

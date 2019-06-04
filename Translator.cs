@@ -138,10 +138,9 @@ namespace AzureCognitiveTranslator
                 throw new Exception("NoContentToTranslate");
             }
             Task<List<string>>[] tasks = new Task<List<string>>[PerfectContentForTranslation.Count];
-            HttpClient translateClient = new HttpClient();
             for (int i = 0; i < PerfectContentForTranslation.Count; i++)
             {
-                tasks[i] = TranslateAsync(PerfectContentForTranslation[i], toLanguageCode, translateClient);
+                tasks[i] = TranslateAsync(PerfectContentForTranslation[i], toLanguageCode);
             }
             List<string> results = new List<string>();
             for (int i = 0; i < tasks.Length; i++)
@@ -149,16 +148,17 @@ namespace AzureCognitiveTranslator
                 results.AddRange(await tasks[i]);
                 ChangeProgress((double)(i + 1) / tasks.Length);
             }
-            translateClient.Dispose();
+            
             return results;
         }
         //TranslateAsync will call this method
-        private async Task<List<string>> TranslateAsync(List<object> contentsForTranslation, string toLanguageCode, HttpClient httpClient)
+        private async Task<List<string>> TranslateAsync(List<object> contentsForTranslation, string toLanguageCode)
         {
             if (!TranslatableLanguages.ContainsKey(toLanguageCode))
             {
                 throw new Exception("InputError:UnexpectedLanguageCode");
             }
+            HttpClient translateClient = new HttpClient();
             string route = "/translate?api-version=3.0&to=" + toLanguageCode;
             string requestBody = JsonConvert.SerializeObject(contentsForTranslation);
             HttpRequestMessage request = new HttpRequestMessage
@@ -168,7 +168,7 @@ namespace AzureCognitiveTranslator
                 Content = new StringContent(requestBody, Encoding.UTF8, "application/json")
             };
             request.Headers.Add("Ocp-Apim-Subscription-Key", _subscriptionKey);
-            HttpResponseMessage response = await httpClient.SendAsync(request);
+            HttpResponseMessage response = await translateClient.SendAsync(request);
             string responseBody = await response.Content.ReadAsStringAsync();
             List<string> results = new List<string>();
             try
@@ -181,9 +181,10 @@ namespace AzureCognitiveTranslator
             }
             catch (Exception)
             {
-                throw;
+                throw new Exception(responseBody.ToString());
             }
             request.Dispose();
+            translateClient.Dispose();
             return results;
         }
     }
