@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace AzureCognitiveTranslator
 {
+    /*Translator is the only class*/
     public class Translator
     {
+        //Cognitive Service Info
         private readonly string _host;
         private readonly string _subscriptionKey;
         public Translator(string baseUrl, string key)//baseUrl should be string like "api.cognitive.microsofttranslator.com", determined by the Region of your AzureCognitiveService
@@ -17,6 +20,11 @@ namespace AzureCognitiveTranslator
             _host = "https://" + baseUrl;
             _subscriptionKey = key;
         }
+
+        //Optional Configuration
+        public bool AutoRetry { get; set; } = true;
+        public byte AutoRetry_MaxTimes { get; set; } = 1;
+
         //A perfect content for translation will be built, each List<string> must be limited by _limitedItemsCoun and _limitedCharactersCount
         private List<List<object>> _perfectContentForTranslation = new List<List<object>> { new List<object>() };
         public List<List<object>> PerfectContentForTranslation { get => _perfectContentForTranslation; set => _perfectContentForTranslation = value; }
@@ -44,8 +52,12 @@ namespace AzureCognitiveTranslator
         {
             set
             {
+                /**
+                Set Property "Contents" means user want clear old contens and start a new travel
+                **/
                 _perfectContentForTranslation.Clear();
                 _perfectContentForTranslation.Add(new List<object>());
+                
                 for (int i = 0; i < value.Count; i++)
                 {
                     AddContent(value[i]);
@@ -131,7 +143,7 @@ namespace AzureCognitiveTranslator
         }
 
         //Main method for translation
-        public async Task<List<string>> TranslateAsync(string toLanguageCode)
+        public async Task<List<string>> TranslateAsync(string toLanguageCode,CancellationToken cancellationToken=new CancellationToken())
         {
             if (PerfectContentForTranslation.Count == 0)
             {
@@ -145,10 +157,35 @@ namespace AzureCognitiveTranslator
             List<string> results = new List<string>();
             for (int i = 0; i < tasks.Length; i++)
             {
-                results.AddRange(await tasks[i]);
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    throw new TaskCanceledException();
+                }
+                byte retryTimes = 0;
+                bool success = false;
+                do
+                {
+                    try
+                    {
+                        results.AddRange(await tasks[i]);
+                        success = true;
+                    }
+                    catch (Exception)
+                    {
+                        if (retryTimes<AutoRetry_MaxTimes&&!cancellationToken.IsCancellationRequested)
+                        {
+                            tasks[i].Dispose();
+                            tasks[i] = TranslateAsync(PerfectContentForTranslation[i], toLanguageCode);
+                            retryTimes++;
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                } while (!success);
                 ChangeProgress((double)(i + 1) / tasks.Length);
             }
-            
             return results;
         }
         //TranslateAsync will call this method

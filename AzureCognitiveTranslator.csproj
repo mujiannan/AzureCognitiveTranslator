@@ -5,25 +5,26 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/mujiannan/AzureCognitiveTranslator</PackageProjectUrl>
-    <AssemblyVersion>1.0.0.5</AssemblyVersion>
-    <FileVersion>1.0.0.5</FileVersion>
-    <Version>1.0.5</Version>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <Description>Batch translation on CognitiveServices Translator API 3.0
+    <AssemblyVersion>1.0.0.7</AssemblyVersion>
+    <FileVersion>1.0.0.7</FileVersion>
+    <Version>1.0.7</Version>
+    <PackageLicenseFile></PackageLicenseFile>
+    <Description>Batch translation with CognitiveServices Translator API 3.0
 
 Speed: 300~1000 items(not characters) per second.</Description>
-    <PackageReleaseNotes>Performance improvement</PackageReleaseNotes>
+    <PackageReleaseNotes>Method "TranslateAsync" optionally receive a cancellationToken.</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>MuJianNan Personal</Copyright>
+    <Authors>MuJianNan</Authors>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <None Remove="LICENSE.txt" />
+    <None Remove="LICENSE.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="LICENSE.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
 </Project>
