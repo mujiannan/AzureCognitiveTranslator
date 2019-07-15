@@ -19,6 +19,12 @@ Speed: 300~1000 items(not characters) per second.</Description>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="exmp\**" />
+    <EmbeddedResource Remove="exmp\**" />
+    <None Remove="exmp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="LICENSE.txt" />
     <None Remove="LICENSE.txt" />
   </ItemGroup>

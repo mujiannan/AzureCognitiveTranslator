@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureCognitiveTranslator", "AzureCognitiveTranslator.csproj", "{321BB5C7-1A38-459E-926E-3317C6F588A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureCognitiveTranslator", "source\AzureCognitiveTranslator.csproj", "{E7347487-F1FC-4559-98F0-5E43081268C3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExmpForTranslator", "..\ExmpForTranslator\ExmpForTranslator.csproj", "{9261DC95-2EFF-47A5-8C15-7E95797BEE40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExmpForTranslator", "exmp\ExmpForTranslator.csproj", "{7AEA885A-6F68-4382-97DE-2DD0B285459D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{321BB5C7-1A38-459E-926E-3317C6F588A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{321BB5C7-1A38-459E-926E-3317C6F588A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{321BB5C7-1A38-459E-926E-3317C6F588A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{321BB5C7-1A38-459E-926E-3317C6F588A1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9261DC95-2EFF-47A5-8C15-7E95797BEE40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9261DC95-2EFF-47A5-8C15-7E95797BEE40}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9261DC95-2EFF-47A5-8C15-7E95797BEE40}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9261DC95-2EFF-47A5-8C15-7E95797BEE40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7347487-F1FC-4559-98F0-5E43081268C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7347487-F1FC-4559-98F0-5E43081268C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7347487-F1FC-4559-98F0-5E43081268C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7347487-F1FC-4559-98F0-5E43081268C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AEA885A-6F68-4382-97DE-2DD0B285459D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AEA885A-6F68-4382-97DE-2DD0B285459D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AEA885A-6F68-4382-97DE-2DD0B285459D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AEA885A-6F68-4382-97DE-2DD0B285459D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
