@@ -72,5 +72,3 @@ Here are **steps**:
             Console.WriteLine("code: {0}", code);
             Console.WriteLine("name: {0}  nativeName: {1}  dir: {2} ", translatableLanguages[code].name, translatableLanguages[code].nativeName, translatableLanguages[code].dir);
         }
-
-* [Exmp program](https://github.com/mujiannan/ExmpForTranslator)
